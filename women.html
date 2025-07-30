@@ -28,7 +28,7 @@
 </head>
 <body>
   <h1>📦 AR 모델 보기</h1>
-  <p>아래 버튼을 누르면 AR 뷰어로 실행되고 음성도 함께 재생됩니다.</p>
+  <p>페이지가 열리면 음성이 자동 재생되고, 아래 버튼을 누르면 AR 뷰어가 실행됩니다.</p>
   <a id="arLink" href="#">AR로 보기</a>
   <audio id="voice" src="voice.mp3" preload="auto"></audio>
   <p style="margin-top: 20px; color: #666;">* iOS Safari 또는 Android Chrome에서 작동합니다.</p>
@@ -56,12 +56,14 @@
       arLink.style.background = "#aaa";
     }
 
+    window.addEventListener('DOMContentLoaded', () => {
+      voice.play().catch(err => {
+        console.warn("자동 재생 실패:", err);
+      });
+    });
+
     arLink.addEventListener('click', (e) => {
       e.preventDefault();
-      voice.currentTime = 0;
-      voice.play().catch(err => {
-        console.warn("음성 재생 실패:", err);
-      });
       setTimeout(() => {
         window.location.href = arURL;
       }, 300);
