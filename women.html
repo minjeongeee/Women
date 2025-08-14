@@ -27,47 +27,39 @@
   </style>
 </head>
 <body>
-  <h1>📦 AR 모델 보기</h1>
-  <p>페이지가 열리면 음성이 자동 재생되고, 아래 버튼을 누르면 AR 뷰어가 실행됩니다.</p>
-  <a id="arLink" href="#">AR로 보기</a>
-  <audio id="voice" src="voice.mp3" preload="auto"></audio>
+  <h1> 👭 여옥사 AR </h1>
+  <p>아래 버튼을 누르면 AR 뷰어로실행</p>
+
+  <!-- AR 보기 버튼 -->
+  <a id="arLink" href="#"> AR 시작하기 </a>
+
   <p style="margin-top: 20px; color: #666;">* iOS Safari 또는 Android Chrome에서 작동합니다.</p>
 
   <script>
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     const arLink = document.getElementById('arLink');
-    const voice = document.getElementById('voice');
 
     const isIOS = /iPad|iPhone|iPod/.test(userAgent);
     const isAndroid = /Android/.test(userAgent);
 
-    let arURL = "#";
-
     if (isIOS) {
-      arURL = "GirlsTalk.usdz";
+      arLink.href = "GirlsTalk.usdz";
       arLink.setAttribute("rel", "ar");
     } else if (isAndroid) {
       const glbFile = location.origin + location.pathname.replace(/\/[^\/]*$/, '/GirlsTalk.glb');
-      arURL =
+      arLink.href =
         `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(glbFile)}&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(glbFile)};end;`;
     } else {
       arLink.href = "#";
       arLink.textContent = "AR은 iOS 또는 Android 기기에서만 지원됩니다.";
       arLink.style.background = "#aaa";
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      voice.play().catch(err => {
-        console.warn("자동 재생 실패:", err);
-      });
-    });
-
-    arLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      setTimeout(() => {
-        window.location.href = arURL;
-      }, 300);
-    });
   </script>
 </body>
 </html>
+
+
+
+
+
+
